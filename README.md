@@ -1,10 +1,10 @@
 # Strum & Sing GitHub Pages Site
 
-This folder contains a simple static marketing site for Strum & Sing.
+This repository contains the public static marketing site for Strum & Sing.
 
 ## Files
 - `index.html` — main landing page
-- `assets/` — screenshots used on the page
+- `assets/` — optimized screenshots used on the page
 
 ## Publish on GitHub Pages
 1. Create a GitHub repository, for example `strum-and-sing-site`
@@ -18,6 +18,11 @@ This folder contains a simple static marketing site for Strum & Sing.
 6. Your site will appear at:
    `https://<your-github-username>.github.io/<repo-name>/`
 
+## App Store link
+The primary call-to-action points to:
+`https://apps.apple.com/gb/app/strum-sing/id6762654476`
+
 ## Before publishing
-- Replace `your-email@example.com` in `index.html`
-- Replace the beta button with your TestFlight or signup link when ready
+- Check the latest screenshots in `assets/`
+- Confirm the App Store URL is still correct
+- Confirm `support.html` and `privacy.html` resolve from the deployed GitHub Pages path

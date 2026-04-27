@@ -3,344 +3,544 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Strum & Sing</title>
-  <meta name="description" content="Build rhythm. Train your pitch. Strum & Sing helps musicians improve timing and pitch accuracy through guided practice." />
+  <title>Strum &amp; Sing | Rhythm &amp; Pitch Trainer</title>
+  <meta name="description" content="Strum &amp; Sing is an iPhone practice app for guided strumming, pitch detection, vocal warm ups, pitch challenges, and tanpura drone practice." />
+  <meta property="og:title" content="Strum &amp; Sing" />
+  <meta property="og:description" content="Build rhythm. Find your pitch. Warm up your voice. Practice with confidence." />
+  <meta property="og:image" content="assets/strum-studio.jpg" />
+  <meta property="og:type" content="website" />
   <style>
     :root {
-      --bg: #0d0d10;
-      --bg-soft: #17171d;
-      --card: rgba(255,255,255,0.08);
-      --text: #f7f7f8;
-      --muted: #d5d5d8;
-      --accent: #e96c1d;
-      --accent-soft: #f5c79f;
-      --line: rgba(255,255,255,0.14);
-      --blue: #1f6e93;
-      --cream: #f1e1b6;
-      --shadow: 0 20px 60px rgba(0,0,0,0.35);
-      --radius: 28px;
-      --max: 1180px;
+      --ink: #141417;
+      --text: #fbf8f1;
+      --muted: rgba(251, 248, 241, 0.76);
+      --soft: rgba(251, 248, 241, 0.12);
+      --line: rgba(251, 248, 241, 0.18);
+      --paper: #f7efe2;
+      --paper-soft: #fffaf1;
+      --charcoal: #323236;
+      --clay: #cc5b2b;
+      --clay-dark: #9e3f20;
+      --teal: #245f73;
+      --teal-dark: #113242;
+      --sage: #8b9385;
+      --plum: #2b172e;
+      --gold: #e8bc72;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+      --max: 1160px;
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 85% 20%, rgba(233,108,29,0.22), transparent 26%),
-        radial-gradient(circle at 15% 10%, rgba(38,114,143,0.16), transparent 18%),
-        linear-gradient(180deg, #08090b 0%, #121116 40%, #2a170d 74%, #5d3419 100%);
-      line-height: 1.45;
+        linear-gradient(155deg, #101713 0%, #24162d 38%, #5e3423 70%, #c99954 100%);
+      line-height: 1.5;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 58px 58px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.65), transparent 72%);
     }
 
     a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
+    img { display: block; max-width: 100%; }
 
-    .wrap { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
 
     .nav {
       position: sticky;
       top: 0;
-      backdrop-filter: blur(14px);
-      background: rgba(8,9,11,0.62);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      z-index: 10;
+      z-index: 20;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(15, 17, 18, 0.74);
+      backdrop-filter: blur(18px);
     }
 
     .nav-inner {
+      min-height: 74px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 0;
       gap: 18px;
     }
 
     .brand {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 12px;
-      font-weight: 800;
-      letter-spacing: 0.2px;
+      font-weight: 850;
     }
 
-    .logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--accent), #ff9a4d);
-      color: #fff;
-      box-shadow: 0 12px 30px rgba(233,108,29,0.35);
-      font-size: 20px;
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 14px 32px rgba(204, 91, 43, 0.34);
+    }
+
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 18px;
-      color: rgba(255,255,255,0.84);
+      gap: 20px;
+      color: rgba(255,255,255,0.78);
       font-size: 15px;
+      font-weight: 700;
     }
 
-    .btn {
+    .button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      padding: 14px 22px;
+      min-height: 46px;
+      padding: 0 20px;
       border-radius: 999px;
-      font-weight: 700;
-      transition: transform .2s ease, opacity .2s ease, background .2s ease;
+      font-weight: 850;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
     }
 
-    .btn:hover { transform: translateY(-1px); opacity: 0.96; }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), #ff8d3c);
-      color: #fff;
-      box-shadow: 0 14px 30px rgba(233,108,29,0.28);
+    .button:hover {
+      transform: translateY(-1px);
     }
-    .btn-secondary {
+
+    .button-primary {
+      background: var(--clay);
+      color: #fff;
+      box-shadow: 0 16px 34px rgba(204, 91, 43, 0.32);
+    }
+
+    .button-primary:hover {
+      background: #d86531;
+    }
+
+    .button-secondary {
       border: 1px solid rgba(255,255,255,0.16);
-      background: rgba(255,255,255,0.05);
-      color: var(--text);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
     }
 
     .hero {
-      padding: 56px 0 32px;
+      position: relative;
+      overflow: hidden;
+      min-height: calc(100svh - 190px);
+      display: grid;
+      align-items: center;
+      isolation: isolate;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 38px;
-      align-items: center;
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background:
+        linear-gradient(90deg, rgba(11, 12, 13, 0.9) 0%, rgba(19, 18, 25, 0.62) 42%, rgba(19, 18, 25, 0.04) 100%),
+        linear-gradient(180deg, rgba(11, 12, 13, 0.04) 0%, rgba(11, 12, 13, 0.48) 100%);
+    }
+
+    .hero-media {
+      position: absolute;
+      inset: -42px max(-9vw, -120px) -80px auto;
+      width: min(920px, 64vw);
+      z-index: -3;
+      opacity: 1;
+    }
+
+    .hero-shot {
+      position: absolute;
+      width: min(31vw, 300px);
+      border-radius: 34px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.08);
+      filter: saturate(1.1) brightness(1.08);
+    }
+
+    .hero-shot.one {
+      top: 20px;
+      left: 8%;
+      transform: rotate(-8deg);
+    }
+
+    .hero-shot.two {
+      top: 132px;
+      right: 8%;
+      transform: rotate(6deg);
+    }
+
+    .hero-shot.three {
+      top: 392px;
+      left: 34%;
+      transform: rotate(2deg);
+    }
+
+    .hero-content {
+      max-width: 650px;
+      padding: 54px 0 46px;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--accent-soft);
-      font-size: 14px;
-      font-weight: 700;
       margin-bottom: 18px;
+      color: #ffe1b4;
+      font-size: 14px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--clay);
+      box-shadow: 0 0 0 7px rgba(204, 91, 43, 0.2);
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(44px, 7vw, 82px);
-      line-height: 0.95;
-      letter-spacing: -1.8px;
+      font-size: clamp(54px, 9vw, 112px);
+      line-height: 0.88;
+      letter-spacing: -0.045em;
     }
 
-    .accent { color: var(--accent); }
-    .hero p {
+    .hero-copy {
       margin: 24px 0 0;
-      font-size: clamp(18px, 2.2vw, 24px);
+      max-width: 610px;
       color: rgba(255,255,255,0.84);
-      max-width: 650px;
+      font-size: clamp(18px, 2.2vw, 24px);
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
-      margin-top: 28px;
+      margin-top: 30px;
     }
 
-    .hero-note {
+    .store-note {
       margin-top: 18px;
-      color: rgba(255,255,255,0.68);
+      color: rgba(255,255,255,0.64);
       font-size: 14px;
+      font-weight: 650;
     }
 
-    .phone-stack {
-      position: relative;
-      min-height: 860px;
+    .feature-strip {
+      padding: 24px 0 34px;
+      background: rgba(7, 12, 14, 0.42);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
     }
 
-    .phone {
-      position: absolute;
-      width: min(44vw, 330px);
-      max-width: 330px;
-      border-radius: 34px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.16);
-      box-shadow: var(--shadow);
-      background: rgba(255,255,255,0.06);
+    .strip-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
     }
 
-    .phone.one {
-      top: 18px;
-      left: 0;
-      transform: rotate(-7deg);
+    .strip-item {
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.07);
     }
 
-    .phone.two {
-      top: 110px;
-      right: 16px;
-      transform: rotate(8deg);
+    .strip-item strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .strip-item span {
+      color: rgba(255,255,255,0.68);
+      font-size: 13px;
     }
 
     .section {
-      padding: 56px 0;
+      padding: 76px 0;
+    }
+
+    .section.light {
+      color: var(--ink);
+      background: var(--paper);
+    }
+
+    .section.deep {
+      background:
+        linear-gradient(135deg, rgba(15, 23, 22, 0.94), rgba(42, 23, 43, 0.92));
+    }
+
+    .section-heading {
+      max-width: 820px;
+      margin-bottom: 34px;
+    }
+
+    .section-kicker {
+      margin: 0 0 10px;
+      color: var(--clay);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
 
     .section-title {
-      font-size: clamp(30px, 4vw, 48px);
-      line-height: 1.02;
-      margin: 0 0 12px;
-      letter-spacing: -1px;
+      margin: 0;
+      font-size: clamp(34px, 4.2vw, 58px);
+      line-height: 1;
+      letter-spacing: -0.035em;
     }
 
-    .section-sub {
-      margin: 0;
+    .section-copy {
+      margin: 16px 0 0;
+      color: rgba(20,20,23,0.68);
+      font-size: 18px;
       max-width: 760px;
-      color: rgba(255,255,255,0.74);
+    }
+
+    .deep .section-copy {
+      color: rgba(255,255,255,0.72);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .feature-card {
+      border-radius: 8px;
+      padding: 22px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(20,20,23,0.08);
+      box-shadow: 0 18px 40px rgba(31, 24, 14, 0.08);
+    }
+
+    .feature-card.dark {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.12);
+      box-shadow: none;
+    }
+
+    .feature-card h3 {
+      margin: 0 0 8px;
+      font-size: 23px;
+      letter-spacing: -0.02em;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: rgba(20,20,23,0.66);
+    }
+
+    .feature-card.dark p {
+      color: rgba(255,255,255,0.68);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 42px;
+      height: 32px;
+      padding: 0 10px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+      background: var(--teal);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .story {
+      display: grid;
+      grid-template-columns: minmax(0, 0.86fr) minmax(320px, 0.74fr);
+      align-items: center;
+      gap: 46px;
+      margin-top: 34px;
+    }
+
+    .story.reverse {
+      grid-template-columns: minmax(320px, 0.74fr) minmax(0, 0.86fr);
+    }
+
+    .story-text h3 {
+      margin: 0 0 14px;
+      font-size: clamp(30px, 3.5vw, 46px);
+      line-height: 1.03;
+      letter-spacing: -0.035em;
+    }
+
+    .story-text p {
+      margin: 0 0 18px;
+      color: rgba(20,20,23,0.7);
       font-size: 18px;
     }
 
-    .feature-grid {
-      margin-top: 30px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .icon {
-      width: 54px;
-      height: 54px;
-      border-radius: 18px;
-      display: grid;
-      place-items: center;
-      background: rgba(233,108,29,0.15);
-      color: var(--accent);
-      font-size: 24px;
-      margin-bottom: 16px;
-    }
-
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 24px;
-      letter-spacing: -0.4px;
-    }
-
-    .card p {
-      margin: 0;
+    .deep .story-text p {
       color: rgba(255,255,255,0.72);
-      font-size: 16px;
-    }
-
-    .showcase {
-      margin-top: 32px;
-      display: grid;
-      grid-template-columns: 0.92fr 1.08fr;
-      gap: 20px;
-      align-items: stretch;
-    }
-
-    .showcase .text-block {
-      padding: 28px;
-      border-radius: var(--radius);
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: var(--shadow);
-    }
-
-    .showcase .text-block h3 {
-      margin: 0 0 14px;
-      font-size: 32px;
-      letter-spacing: -0.8px;
-    }
-
-    .showcase .text-block p {
-      margin: 0 0 18px;
-      color: rgba(255,255,255,0.74);
-      font-size: 17px;
     }
 
     .bullets {
       display: grid;
-      gap: 12px;
+      gap: 10px;
       margin: 0;
       padding: 0;
       list-style: none;
-      color: rgba(255,255,255,0.88);
+      color: rgba(20,20,23,0.78);
+      font-weight: 650;
+    }
+
+    .deep .bullets {
+      color: rgba(255,255,255,0.8);
     }
 
     .bullets li {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 10px;
+      align-items: start;
     }
 
     .bullets li::before {
-      content: "•";
-      color: var(--accent);
-      font-weight: 800;
-      font-size: 22px;
-      line-height: 1;
-      margin-top: -2px;
+      content: "";
+      width: 8px;
+      height: 8px;
+      margin-top: 9px;
+      border-radius: 50%;
+      background: var(--clay);
     }
 
-    .showcase-image {
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.1);
+    .device-frame {
+      justify-self: center;
+      width: min(100%, 355px);
+      padding: 10px;
+      border-radius: 42px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.28), rgba(255,255,255,0.06));
+      border: 1px solid rgba(255,255,255,0.24);
       box-shadow: var(--shadow);
-      background: rgba(255,255,255,0.05);
+    }
+
+    .light .device-frame {
+      border-color: rgba(20,20,23,0.12);
+      background: rgba(255,255,255,0.72);
+      box-shadow: 0 24px 64px rgba(55, 42, 27, 0.18);
+    }
+
+    .device-frame img {
+      border-radius: 32px;
+      width: 100%;
+    }
+
+    .dual-shots {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .dual-shots .device-frame {
+      width: min(100%, 300px);
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .flow-step {
+      border-radius: 8px;
+      padding: 20px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .flow-step span {
+      display: block;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .flow-step h3 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+    }
+
+    .flow-step p {
+      margin: 0;
+      color: rgba(255,255,255,0.68);
     }
 
     .cta {
-      padding: 70px 0 86px;
+      padding: 80px 0 92px;
+      color: var(--ink);
+      background: linear-gradient(180deg, var(--paper), #f2dcae);
     }
 
-    .cta-box {
-      background:
-        radial-gradient(circle at top right, rgba(233,108,29,0.22), transparent 28%),
-        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 36px;
-      padding: 34px;
-      box-shadow: var(--shadow);
+    .cta-inner {
       display: grid;
       grid-template-columns: 1fr auto;
+      gap: 24px;
       align-items: center;
-      gap: 20px;
+      padding: 34px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(20,20,23,0.08);
+      box-shadow: 0 22px 60px rgba(68, 43, 18, 0.13);
     }
 
-    .cta-box h2 {
+    .cta h2 {
       margin: 0 0 8px;
-      font-size: clamp(32px, 4vw, 50px);
+      font-size: clamp(32px, 4vw, 54px);
       line-height: 1;
-      letter-spacing: -1px;
+      letter-spacing: -0.035em;
     }
 
-    .cta-box p {
+    .cta p {
       margin: 0;
-      color: rgba(255,255,255,0.74);
+      color: rgba(20,20,23,0.68);
       font-size: 18px;
-      max-width: 720px;
+      max-width: 760px;
     }
 
     footer {
-      padding: 0 0 40px;
-      color: rgba(255,255,255,0.58);
+      padding: 30px 0 42px;
+      background: #111214;
+      color: rgba(255,255,255,0.62);
       font-size: 14px;
     }
 
@@ -349,162 +549,372 @@
       justify-content: space-between;
       gap: 18px;
       flex-wrap: wrap;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding-top: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.82);
     }
 
     @media (max-width: 980px) {
-      .hero-grid,
-      .showcase,
-      .cta-box,
-      .feature-grid {
+      .hero {
+        min-height: calc(100svh - 150px);
+        padding-top: 0;
+      }
+
+      .hero-media {
+        position: absolute;
+        inset: auto -74px -94px auto;
+        width: min(760px, 110vw);
+        height: 520px;
+        margin: 0;
+        opacity: 0.82;
+      }
+
+      .hero .wrap {
+        display: block;
+      }
+
+      .hero-content {
+        padding: 44px 0 40px;
+      }
+
+      .hero-shot {
+        width: 230px;
+      }
+
+      .hero-shot.one { left: 2%; top: 0; }
+      .hero-shot.two { right: 2%; top: 78px; }
+      .hero-shot.three { left: 31%; top: 224px; }
+
+      .strip-grid,
+      .cards,
+      .flow,
+      .story,
+      .story.reverse,
+      .cta-inner {
         grid-template-columns: 1fr;
       }
 
-      .phone-stack {
-        min-height: 740px;
-        margin-top: 18px;
+      .story.reverse .story-text {
+        order: -1;
       }
 
-      .phone {
-        width: min(44vw, 290px);
-      }
-
-      .phone.one {
-        left: 10px;
-      }
-
-      .phone.two {
-        right: 10px;
+      .dual-shots {
+        max-width: 660px;
+        margin: 0 auto;
       }
     }
 
-    @media (max-width: 640px) {
-      .nav-links a:not(.btn) { display: none; }
-      .hero { padding-top: 26px; }
-      .wrap { width: min(var(--max), calc(100% - 20px)); }
-      .phone-stack { min-height: 620px; }
-      .phone { width: 220px; }
-      .phone.one { top: 0; transform: rotate(-5deg); }
-      .phone.two { top: 80px; transform: rotate(6deg); }
-      .card, .showcase .text-block { padding: 20px; }
-      .cta-box { padding: 26px; }
+    @media (max-width: 680px) {
+      .wrap {
+        width: min(var(--max), calc(100% - 22px));
+      }
+
+      .nav-inner {
+        min-height: 66px;
+      }
+
+      .nav-links a:not(.button) {
+        display: none;
+      }
+
+      .nav-links {
+        gap: 0;
+      }
+
+      .button {
+        min-height: 42px;
+        padding: 0 15px;
+      }
+
+      .hero-content {
+        max-width: 100%;
+        padding: 34px 0 34px;
+      }
+
+      h1 {
+        font-size: clamp(52px, 17vw, 78px);
+      }
+
+      .hero {
+        min-height: calc(100svh - 132px);
+      }
+
+      .hero-media {
+        inset: auto -84px -88px auto;
+        width: 118vw;
+        height: 390px;
+        opacity: 0.72;
+      }
+
+      .hero-shot {
+        width: 188px;
+        border-radius: 26px;
+      }
+
+      .hero-shot img {
+        border-radius: 24px;
+      }
+
+      .hero-shot.two {
+        top: 70px;
+      }
+
+      .hero-shot.three {
+        top: 195px;
+        left: 28%;
+      }
+
+      .feature-strip,
+      .section,
+      .cta {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .section {
+        padding-top: 58px;
+        padding-bottom: 58px;
+      }
+
+      .cards {
+        gap: 12px;
+      }
+
+      .dual-shots {
+        grid-template-columns: 1fr;
+      }
+
+      .device-frame {
+        width: min(100%, 320px);
+      }
+
+      .cta-inner {
+        padding: 24px;
+      }
     }
   </style>
 </head>
 <body>
   <nav class="nav">
     <div class="wrap nav-inner">
-      <a href="#" class="brand">
-        <span class="logo">♪</span>
+      <a href="#" class="brand" aria-label="Strum and Sing home">
+        <span class="brand-mark">
+          <img src="assets/app-icon.png" alt="" />
+        </span>
         <span>Strum &amp; Sing</span>
       </a>
-      <div class="nav-links">
+      <div class="nav-links" aria-label="Primary navigation">
         <a href="#features">Features</a>
-        <a href="#practice">Practice</a>
-        <a href="#contact">Contact</a>
-        <a class="btn btn-secondary" href="#download">Coming Soon</a>
+        <a href="#practice-flow">Practice flow</a>
+        <a href="support.html">Support</a>
+        <a class="button button-primary" href="https://apps.apple.com/gb/app/strum-sing/id6762654476" target="_blank" rel="noopener">App Store</a>
       </div>
     </div>
   </nav>
 
   <header class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <div class="eyebrow">Music practice companion</div>
-        <h1>Build <span class="accent">Rhythm</span><br>&amp; <span class="accent">Pitch</span></h1>
-        <p>Strum &amp; Sing helps musicians improve timing and pitch accuracy through guided strumming patterns, metronome support, scale playback, and sing-back feedback.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#download">Join the beta</a>
-          <a class="btn btn-secondary" href="#features">See features</a>
-        </div>
-        <div class="hero-note">Perfect for guitar learners, vocal practice, and daily music training.</div>
+    <div class="hero-media" aria-hidden="true">
+      <div class="hero-shot one">
+        <img src="assets/strum-studio.jpg" alt="" />
       </div>
+      <div class="hero-shot two">
+        <img src="assets/pitch-starting-note.jpg" alt="" />
+      </div>
+      <div class="hero-shot three">
+        <img src="assets/tanpura.jpg" alt="" />
+      </div>
+    </div>
 
-      <div class="phone-stack" aria-hidden="true">
-        <div class="phone one">
-          <img src="rhythm.png" alt="Strum &amp; Sing rhythm practice screen" />
+    <div class="wrap">
+      <div class="hero-content">
+        <div class="eyebrow">Now on the App Store</div>
+        <h1>Strum &amp; Sing</h1>
+        <p class="hero-copy">Build rhythm, find your home note, warm up your voice, and practice pitch with clear guided exercises.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://apps.apple.com/gb/app/strum-sing/id6762654476" target="_blank" rel="noopener">Download on the App Store</a>
+          <a class="button button-secondary" href="#features">See what is inside</a>
         </div>
-        <div class="phone two">
-          <img src="pitch.png" alt="Strum &amp; Sing live pitch feedback screen" />
-        </div>
+        <p class="store-note">For iPhone. Designed for focused daily rhythm and vocal pitch practice.</p>
       </div>
     </div>
   </header>
 
-  <section class="section" id="features">
-    <div class="wrap">
-      <h2 class="section-title">Focused tools for better practice</h2>
-      <p class="section-sub">Designed to help you lock in timing, internalize scales, and know when your note matches.</p>
+  <section class="feature-strip" aria-label="App sections">
+    <div class="wrap strip-grid">
+      <div class="strip-item">
+        <strong>Strum</strong>
+        <span>Follow patterns with count, click, or strum audio.</span>
+      </div>
+      <div class="strip-item">
+        <strong>Pitch</strong>
+        <span>Find and save the scale that fits your voice.</span>
+      </div>
+      <div class="strip-item">
+        <strong>Warm Up</strong>
+        <span>Sing guided exercises while the piano leads.</span>
+      </div>
+      <div class="strip-item">
+        <strong>Challenge</strong>
+        <span>Test whether each scale note is landing cleanly.</span>
+      </div>
+      <div class="strip-item">
+        <strong>Tanpura</strong>
+        <span>Use a steady drone once your notes are familiar.</span>
+      </div>
+    </div>
+  </section>
 
-      <div class="feature-grid">
-        <article class="card">
-          <div class="icon">🎸</div>
+  <section class="section light" id="features">
+    <div class="wrap">
+      <div class="section-heading">
+        <p class="section-kicker">Built for practice</p>
+        <h2 class="section-title">A simple loop for rhythm, pitch, and voice confidence.</h2>
+        <p class="section-copy">Strum &amp; Sing keeps each practice job focused: set your scale, hear the reference, sing along, and check whether the note is really there.</p>
+      </div>
+
+      <div class="cards">
+        <article class="feature-card">
+          <span class="pill">01</span>
           <h3>Guided strumming</h3>
-          <p>Work through clear strumming patterns with visual cues that show when to hit and when to follow through.</p>
+          <p>Work through strumming patterns with clear visual strokes and sound options that stay out of your way.</p>
         </article>
-        <article class="card">
-          <div class="icon">⏱️</div>
-          <h3>Metronome support</h3>
-          <p>Practice with metronome, guitar, or both so you can build timing steadily at your own pace.</p>
+        <article class="feature-card">
+          <span class="pill">02</span>
+          <h3>Scale setup</h3>
+          <p>Use Quick Detect or the guided flow to find your home note, then carry that scale into Warm Up and Challenge.</p>
         </article>
-        <article class="card">
-          <div class="icon">🎤</div>
-          <h3>Pitch feedback</h3>
-          <p>Pick a scale, hear the note, sing it back, and see when the app detects you are in tune.</p>
+        <article class="feature-card">
+          <span class="pill">03</span>
+          <h3>Live pitch feedback</h3>
+          <p>Sing against reference notes, watch the app detect your pitch, and learn where each note sits in your range.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="section" id="practice">
-    <div class="wrap showcase">
-      <div class="text-block">
-        <h3>Practice rhythm with confidence</h3>
-        <p>Use structured patterns to stay consistent and develop better groove.</p>
+  <section class="section deep">
+    <div class="wrap story">
+      <div class="story-text">
+        <p class="section-kicker">Strum Studio</p>
+        <h3>Lock in rhythm before you add more complexity.</h3>
+        <p>Start with a clean pattern, choose the practice sound you want, and follow the beat without guessing where the stroke lands.</p>
         <ul class="bullets">
-          <li>Visual pattern guidance for each strum</li>
-          <li>Choose metronome, guitar, or both</li>
-          <li>Simple interface built for repeat practice</li>
+          <li>Metronome speed with count, click, and strum sound controls.</li>
+          <li>Pattern cards that keep the main action close to the pattern name.</li>
+          <li>Stroke guidance that shows hits and air motion clearly.</li>
         </ul>
       </div>
-      <div class="showcase-image">
-        <img src="rhythm.png" alt="Rhythm mode screenshot" />
+      <div class="device-frame">
+        <img src="assets/strum-studio.jpg" alt="Strum Studio screen showing a strumming pattern and Start Strumming button" loading="lazy" />
       </div>
     </div>
+  </section>
 
-    <div class="wrap showcase" style="margin-top:20px;">
-      <div class="showcase-image">
-        <img src="autoplay.png" alt="Pitch mode scale autoplay screenshot" />
+  <section class="section light">
+    <div class="wrap story reverse">
+      <div class="device-frame">
+        <img src="assets/pitch-starting-note.jpg" alt="Pitch tab showing Find Your Starting Note, Quick Detect, Guided Flow, and scale settings" loading="lazy" />
       </div>
-      <div class="text-block">
-        <h3>Train your ear and your voice</h3>
-        <p>Hear the scale, choose the target note, and sing it back while the app listens.</p>
+      <div class="story-text">
+        <p class="section-kicker">Pitch</p>
+        <h3>Find the scale your voice can actually use.</h3>
+        <p>The Pitch tab helps you save a comfortable home note and notation style before moving into exercises.</p>
         <ul class="bullets">
-          <li>Scale-based practice with guided playback</li>
-          <li>Live pitch detection during sing-back</li>
-          <li>Clear feedback when your note matches</li>
+          <li>Quick Detect for a fast starting point.</li>
+          <li>Guided flow for checking octave comfort.</li>
+          <li>Manual key, octave, and notation settings when you already know your scale.</li>
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section deep" id="practice-flow">
+    <div class="wrap">
+      <div class="section-heading">
+        <p class="section-kicker">Vocal practice</p>
+        <h2 class="section-title">Warm up first, then test whether the notes are landing.</h2>
+        <p class="section-copy">Warm Up teaches the placement. Challenge checks it. That keeps tanpura practice from becoming guesswork.</p>
+      </div>
+
+      <div class="dual-shots">
+        <div class="device-frame">
+          <img src="assets/warm-up.jpg" alt="Warm Up tab showing vocal practice controls and Follow Along scale notes" loading="lazy" />
+        </div>
+        <div class="device-frame">
+          <img src="assets/challenge.jpg" alt="Challenge tab showing pitch challenge, note chips, and Auto Play Scale" loading="lazy" />
+        </div>
+      </div>
+
+      <div class="flow">
+        <article class="flow-step">
+          <span>Step 1</span>
+          <h3>Set pitch</h3>
+          <p>Pick or detect the home note and scale that fit the voice.</p>
+        </article>
+        <article class="flow-step">
+          <span>Step 2</span>
+          <h3>Warm up</h3>
+          <p>Follow piano-led exercises like Straight Scale and Ascending Pyramid.</p>
+        </article>
+        <article class="flow-step">
+          <span>Step 3</span>
+          <h3>Challenge</h3>
+          <p>Sing each scale note and hold it long enough to prove control.</p>
+        </article>
+        <article class="flow-step">
+          <span>Step 4</span>
+          <h3>Drone</h3>
+          <p>Use tanpura after the note positions are familiar.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section light">
+    <div class="wrap story">
+      <div class="story-text">
+        <p class="section-kicker">Tanpura</p>
+        <h3>Practice with a steady home pitch when your ear is ready.</h3>
+        <p>The tanpura tab follows the saved Pitch tab scale and gives a calming drone while the live scale view tracks your singing.</p>
+        <ul class="bullets">
+          <li>Uses the scale saved in Pitch.</li>
+          <li>Earphones reminder to reduce mic feedback.</li>
+          <li>Live scale graph shows your voice moving through the notes.</li>
+        </ul>
+      </div>
+      <div class="device-frame">
+        <img src="assets/tanpura.jpg" alt="Tanpura tab showing Start Drone and a live scale graph" loading="lazy" />
       </div>
     </div>
   </section>
 
   <section class="cta" id="download">
     <div class="wrap">
-      <div class="cta-box">
+      <div class="cta-inner">
         <div>
-          <h2>Ready for early testers</h2>
-          <p>Use this section as your GitHub Pages marketing URL destination. Replace the beta button with your TestFlight link when you are ready.</p>
+          <h2>Start a focused practice session.</h2>
+          <p>Download Strum &amp; Sing on the App Store and use a few clear minutes each day to build rhythm and pitch confidence.</p>
         </div>
-        <a class="btn btn-primary" href="mailto:strumandsingalong@gmail.com?subject=Strum%20%26%20Sing%20Beta%20Interest">Contact for beta</a>
+        <a class="button button-primary" href="https://apps.apple.com/gb/app/strum-sing/id6762654476" target="_blank" rel="noopener">Download now</a>
       </div>
     </div>
   </section>
 
-  <footer id="contact">
+  <footer>
     <div class="wrap footer-row">
-      <div>© 2026 Strum &amp; Sing</div>
-      <div>Email: strumandsingalong@gmail.com</div>
+      <div>&copy; 2026 Strum &amp; Sing</div>
+      <div class="footer-links">
+        <a href="support.html">Support</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="mailto:strumandsingalong@gmail.com">Contact</a>
+      </div>
     </div>
   </footer>
 </body>
