@@ -1,22 +1,20 @@
 # Strum & Sing GitHub Pages Site
 
-This repository contains the public static marketing site for Strum & Sing.
+This repository contains the public static marketing site for Strum & Sing:
+`https://strumandsingalong-hue.github.io/strumandsing_site/`
 
 ## Files
 - `index.html` — main landing page
 - `assets/` — optimized screenshots used on the page
 
 ## Publish on GitHub Pages
-1. Create a GitHub repository, for example `strum-and-sing-site`
-2. Upload all files from this folder to the repository root
-3. In GitHub: **Settings > Pages**
-4. Under **Build and deployment**, choose:
+1. Push changes to the `main` branch of `strumandsing_site`
+2. In GitHub: **Settings > Pages**
+3. Under **Build and deployment**, confirm:
    - **Source:** Deploy from a branch
    - **Branch:** `main`
    - **Folder:** `/ (root)`
-5. Save and wait a minute or two
-6. Your site will appear at:
-   `https://<your-github-username>.github.io/<repo-name>/`
+4. Save and wait a minute or two for GitHub Pages to refresh
 
 ## App Store link
 The primary call-to-action points to:
@@ -24,5 +22,6 @@ The primary call-to-action points to:
 
 ## Before publishing
 - Check the latest screenshots in `assets/`
+- Keep the landing page aligned with the current app feature set, including Mystery Sequence
 - Confirm the App Store URL is still correct
 - Confirm `support.html` and `privacy.html` resolve from the deployed GitHub Pages path
