@@ -18,6 +18,6 @@ The primary call-to-action points to:
 
 ## Before publishing
 - Check the latest screenshots in `assets/`
-- Keep the landing page aligned with the current app feature set, including Mystery Sequence
+- Keep the landing page aligned with the current app feature set, including nursery rhymes, Learn Chords, Practice Circle, and Mystery Sequence
 - Confirm the App Store URL is still correct
 - Confirm `support.html` and `privacy.html` resolve from `https://strumandsing.co.uk/`
