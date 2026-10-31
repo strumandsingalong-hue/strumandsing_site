@@ -142,6 +142,25 @@
       color: #fff;
     }
 
+    .coach-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .coach-note {
+      margin-top: 14px;
+      font-size: 14px;
+      opacity: 0.72;
+    }
+
+    .nav-coach { margin-right: 6px; }
+
+    @media (max-width: 680px) {
+      .nav-coach .hide-sm { display: none; }
+    }
+
     .hero {
       position: relative;
       overflow: hidden;
@@ -715,6 +734,7 @@
         <a href="#mystery-sequence">Mystery Sequence</a>
         <a href="#practice-circle">Practice Circle</a>
         <a href="support.html">Support</a>
+        <a class="button button-secondary nav-coach" href="coach/"><span><span class="hide-sm">Strum &amp; Sing </span>Coach</span></a>
         <a class="button button-primary" href="https://apps.apple.com/gb/app/strum-sing/id6762654476" target="_blank" rel="noopener">App Store</a>
       </div>
     </div>
@@ -986,6 +1006,30 @@
       </div>
       <div class="device-frame">
         <img src="assets/toolkit.jpg" alt="Toolkit tab showing Strum Studio, Live Scale, Sing and Play, Tanpura, and Tuner cards" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section deep" id="coach">
+    <div class="wrap story">
+      <div class="story-text">
+        <p class="section-kicker">Strum &amp; Sing Coach · New, in your browser</p>
+        <h3>Name a song. RaiN teaches it with the chords you already know.</h3>
+        <p>Strum &amp; Sing Coach is a friendly talking guitar coach called RaiN. Tell her what you want to play and which chords you can manage, and she works out the capo and simpler shapes so the song fits your hands, then teaches it one small step at a time.</p>
+        <ul class="bullets">
+          <li>Asks where you are starting and whether you want to strum only or sing and strum.</li>
+          <li>Places the capo and swaps in easier chords, and asks before adding one or two new ones.</li>
+          <li>"RaiN, show me" walks you through each new chord one finger at a time.</li>
+          <li>Chord-change drills, the strum pattern, each section, humming, then the whole song.</li>
+          <li>Hand-checked charts for the songs from the app; other songs are marked as AI drafts.</li>
+        </ul>
+        <div class="coach-actions">
+          <a class="button button-primary" href="coach/">Try Strum &amp; Sing Coach</a>
+        </div>
+        <p class="coach-note">Free to try on phone or computer. Works best in Chrome, Edge or Safari with sound on. No lyrics are provided; you can add your own.</p>
+      </div>
+      <div class="device-frame">
+        <img src="assets/coach-tiles.jpg" alt="Strum and Sing Coach showing RaiN asking which chords of the song you can already play" loading="lazy" />
       </div>
     </div>
   </section>
